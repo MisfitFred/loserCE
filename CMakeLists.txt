@@ -1,7 +1,7 @@
 # CMakeLists files in this project can
 # refer to the root source directory of the project as ${HELLO_SOURCE_DIR} and
 # to the root binary directory of the project as ${HELLO_BINARY_DIR}.
-cmake_minimum_required (VERSION 2.8.12 FATAL_ERROR)
+cmake_minimum_required (VERSION 3.8 FATAL_ERROR)
 project (loserCE)
 
 enable_language(CXX)
@@ -98,9 +98,9 @@ endif()
 # library that holds sources to test
 # add_library(example src/example.cpp)
 
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads REQUIRED)
 
-# update git submodules before building google test
-# add_dependencies(googletest update_submodules)
 add_subdirectory(Engine)
 add_subdirectory(External)
 
@@ -114,11 +114,13 @@ add_executable(
 # unit test executable depends on google test
 add_dependencies(unit_tests googletest)
 
+
+
 # link unit test executable against google test
 target_link_libraries(
     unit_tests
     googletest
-    pthread
+    Threads::Threads
 	Engine
     )
 

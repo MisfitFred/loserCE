@@ -15,12 +15,12 @@ static const auto blackBishop = 9;
 static const auto blackQueen = 10;
 static const auto blackKing = 11;
 
-emplacement::emplacement(posOfChessmanClass *newChessboard)
+emplacement::emplacement(emplacement *originChessboard)
 {
-	//toDo MemoryPool can optimize speed
+	//toDo MemoryPool can optimize speed for memory allocation
 	chessboard = new posOfChessmanClass[12];
-	//better ise c++ mechanisms
-	memcpy((void*)chessboard, newChessboard, sizeof(chessboard));
+	//todo better use c++ mechanisms, perhaps a reference can be fir much better
+	memcpy((void*)chessboard, originChessboard->chessboard, sizeof(chessboard));
 }
 
 emplacement::~emplacement()
