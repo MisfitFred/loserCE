@@ -7,7 +7,7 @@ add_custom_target(
     COMMAND git submodule init
     COMMAND git submodule update
 	COMMAND git checkout release-1.8.0
-    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/googletest
     )
 
 #set(GOOGLETEST_ROOT googletest/googletest CACHE STRING "Google Test source root")
