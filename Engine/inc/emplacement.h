@@ -25,10 +25,10 @@ public:
 	posOfChessmanClass getBlackOccupiedFields();
 	posOfChessmanClass getWhiteOccupiedFields();
 
-	emplacement(posOfChessmanClass *newChessboard);
+	emplacement(emplacement *originChessboard);
 	~emplacement();
 
-private:
+protected:
 	const posOfChessmanClass *chessboard;
 };
 
