@@ -117,13 +117,25 @@ add_dependencies(unit_tests googletest)
 
 
 # link unit test executable against google test
+# todo need to find a clean solution
+if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+   target_link_libraries(
+    unit_tests
+    googletest
+    pthread
+	Engine
+    )
+endif()
+if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
 target_link_libraries(
     unit_tests
     googletest
     Threads::Threads
 	Engine
     )
-
+endif()	
+	
+	
 set_target_properties(unit_tests
                       PROPERTIES COMPILE_DEFINITIONS GTEST_LANG_CXX11)
 					  

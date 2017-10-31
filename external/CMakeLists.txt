@@ -76,9 +76,8 @@ set_property(TARGET pthread APPEND PROPERTY INTERFACE_INCLUDE_DIRECTORIES ${CMAK
 endif()	
 
 if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
-   set(THREADS_PREFER_PTHREAD_FLAG ON)
+	set(THREADS_PREFER_PTHREAD_FLAG ON)
 	find_package(Threads REQUIRED)
-	add_library(pthread ALIAS  Threads::Threads)
 endif()
 
 
