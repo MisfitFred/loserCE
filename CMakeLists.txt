@@ -102,7 +102,7 @@ set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
 
 add_subdirectory(Engine)
-add_subdirectory(External)
+add_subdirectory(external)
 
 # unit test executable
 add_executable(
