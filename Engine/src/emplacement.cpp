@@ -2,33 +2,99 @@
 #include "emplacement.h"
 #include "string.h"
 
-static const auto whitePawn = 0;
-static const auto whiteRook = 1;
-static const auto whiteKnight = 2;
-static const auto whiteBishop = 3;
-static const auto whiteQueen = 4;
-static const auto whiteKing = 5;
-static const auto blackPawn = 6;
-static const auto blackRook = 7;
-static const auto blackKnight = 8;
-static const auto blackBishop = 9;
-static const auto blackQueen = 10;
-static const auto blackKing = 11;
+/*some ugly type casts due to performance increase */
+static_assert(chessmanClass::whitePawn == 0u, "Assumend enumeration of chesmmanClass does not fit to the implementation of emplacement class");
+static_assert(chessmanClass::whiteRook == 1u, "Assumend enumeration of chesmmanClass does not fit to the implementation of emplacement class");
+static_assert(chessmanClass::whiteKnight == 2u, "Assumend enumeration of chesmmanClass does not fit to the implementation of emplacement class");
+static_assert(chessmanClass::whiteBishop == 3u, "Assumend enumeration of chesmmanClass does not fit to the implementation of emplacement class");
+static_assert(chessmanClass::whiteQueen == 4u, "Assumend enumeration of chesmmanClass does not fit to the implementation of emplacement class");
+static_assert(chessmanClass::whiteKing == 5u, "Assumend enumeration of chesmmanClass does not fit to the implementation of emplacement class");
+static_assert(chessmanClass::blackPawn == 6u, "Assumend enumeration of chesmmanClass does not fit to the implementation of emplacement class");
+static_assert(chessmanClass::blackRook == 7u, "Assumend enumeration of chesmmanClass does not fit to the implementation of emplacement class");
+static_assert(chessmanClass::blackKnight == 8u, "Assumend enumeration of chesmmanClass does not fit to the implementation of emplacement class");
+static_assert(chessmanClass::blackBishop == 9u, "Assumend enumeration of chesmmanClass does not fit to the implementation of emplacement class");
+static_assert(chessmanClass::blackQueen == 10u, "Assumend enumeration of chesmmanClass does not fit to the implementation of emplacement class");
+static_assert(chessmanClass::blackKing == 11u, "Assumend enumeration of chesmmanClass does not fit to the implementation of emplacement class");
+static_assert(chessmanClass::black == 12u, "Assumend enumeration of chesmmanClass does not fit to the implementation of emplacement class");
+static_assert(chessmanClass::white == 13u, "Assumend enumeration of chesmmanClass does not fit to the implementation of emplacement class");
+static constexpr int whitePawn = static_cast<int>(chessmanClass::whitePawn);
+static constexpr int whiteRook = static_cast<int>(chessmanClass::whiteRook);
+static constexpr int whiteKnight = static_cast<int>(chessmanClass::whiteKnight);
+static constexpr int whiteBishop = static_cast<int>(chessmanClass::whiteBishop);
+static constexpr int whiteQueen = static_cast<int>(chessmanClass::whiteQueen);
+static constexpr int whiteKing = static_cast<int>(chessmanClass::whiteKing);
+static constexpr int blackPawn = static_cast<int>(chessmanClass::blackPawn);
+static constexpr int blackRook = static_cast<int>(chessmanClass::blackRook);
+static constexpr int blackKnight = static_cast<int>(chessmanClass::blackKnight);
+static constexpr int blackBishop = static_cast<int>(chessmanClass::blackBishop);
+static constexpr int blackQueen = static_cast<int>(chessmanClass::blackQueen);
+static constexpr int blackKing = static_cast<int>(chessmanClass::blackKing);
+static constexpr int black = static_cast<int>(chessmanClass::black);
+static constexpr int white = static_cast<int>(chessmanClass::white);
 
+
+emplacement::emplacement()
+{
+	for ( auto i: chessboard) {
+		i = 0;
+	}
+}
+
+/*
 emplacement::emplacement(emplacement *originChessboard)
 {
-	//toDo MemoryPool can optimize speed for memory allocation
-	chessboard = new posOfChessmanClass[12];
 	//todo better use c++ mechanisms, perhaps a reference can be fir much better
-	memcpy((void*)chessboard, originChessboard->chessboard, sizeof(chessboard));
+	//std::copy(std::begin(chessboard), std::end(chessboard), std::begin(originChessboard->chessboard));
+	//memcpy((void*)chessboard, originChessboard->chessboard, sizeof(chessboard));
+}*/
+
+emplacement::emplacement(emplacement * originChessboard, chessMove move)
+{
+	std::copy(std::begin(chessboard), std::end(chessboard), std::begin(originChessboard->chessboard));
+
+	switch (move.chessman) 
+	{
+		case chessmanClass::whitePawn:
+			break;
+		case chessmanClass::whiteRook:
+			break;
+		case chessmanClass::whiteKnight:
+			break;
+		case chessmanClass::whiteBishop:
+			break;
+		case chessmanClass::whiteQueen:
+			break;
+		case chessmanClass::whiteKing:
+			break;
+		case chessmanClass::blackPawn:
+			break;
+		case chessmanClass::blackRook:
+			break;
+		case chessmanClass::blackKnight:
+			break;
+		case chessmanClass::blackBishop:
+			break;
+		case chessmanClass::blackQueen:
+			break;
+		case chessmanClass::blackKing:
+			break;
+		case chessmanClass::black:
+			break;
+		case chessmanClass::white:
+			break;
+		default:
+			break;
+	}
 }
 
 emplacement::~emplacement()
 {
-	delete chessboard; 
+	//delete chessboard; 
 }
 
-posOfChessmanClass emplacement::getGetPosOf(chessmanClass chessman)
+
+
+bitset<64> emplacement::getGetPosOf(chessmanClass chessman)
 {
 	switch (chessman) {
 		case chessmanClass::whitePawn:
@@ -49,7 +115,7 @@ posOfChessmanClass emplacement::getGetPosOf(chessmanClass chessman)
 		case chessmanClass::whiteKing:
 	
 		break;
-		case chessmanClass::blackpawn:
+		case chessmanClass::blackPawn:
 	
 		break;
 		case chessmanClass::blackRook:
@@ -78,69 +144,69 @@ posOfChessmanClass emplacement::getGetPosOf(chessmanClass chessman)
 	return this->chessboard[0];
 }
 
-posOfChessmanClass emplacement::getGetPosOf_whitePawn()
+bitset<64> emplacement::getGetPosOf_whitePawn()
 {
 	return this->chessboard[whitePawn];
 }
 
-posOfChessmanClass emplacement::getGetPosOf_whiteRook()
+bitset<64> emplacement::getGetPosOf_whiteRook()
 {
 	return this->chessboard[whiteRook];
 }
 
-posOfChessmanClass emplacement::getGetPosOf_whiteKnight()
+bitset<64> emplacement::getGetPosOf_whiteKnight()
 {
 	return this->chessboard[whiteKnight];
 }
 
-posOfChessmanClass emplacement::getGetPosOf_whiteBishop()
+bitset<64> emplacement::getGetPosOf_whiteBishop()
 {
 	return this->chessboard[whiteBishop];
 }
 
-posOfChessmanClass emplacement::getGetPosOf_whiteQueen()
+bitset<64> emplacement::getGetPosOf_whiteQueen()
 {
 	return this->chessboard[whiteQueen];
 }
 
-posOfChessmanClass emplacement::getGetPosOf_whiteKing()
+bitset<64> emplacement::getGetPosOf_whiteKing()
 {
 	return this->chessboard[whiteKing];
 }
 
-posOfChessmanClass emplacement::getGetPosOf_blackPawn()
+bitset<64> emplacement::getGetPosOf_blackPawn()
 {
 	return this->chessboard[blackPawn];
 }
 
-posOfChessmanClass emplacement::getGetPosOf_blackRook()
+bitset<64> emplacement::getGetPosOf_blackRook()
 {
 	return this->chessboard[blackRook];
 }
 
-posOfChessmanClass emplacement::getGetPosOf_blackKnight()
+bitset<64> emplacement::getGetPosOf_blackKnight()
 {
 	return this->chessboard[blackKnight];
 }
 
-posOfChessmanClass emplacement::getGetPosOf_blackBishop()
+bitset<64> emplacement::getGetPosOf_blackBishop()
 {
 	return this->chessboard[blackBishop];
 }
 
-posOfChessmanClass emplacement::getGetPosOf_blackQueen()
+bitset<64> emplacement::getGetPosOf_blackQueen()
 {
 	return this->chessboard[blackQueen];
 }
 
-posOfChessmanClass emplacement::getGetPosOf_blackKing()
+bitset<64> emplacement::getGetPosOf_blackKing()
 {
 	return this->chessboard[blackKing];
 }
 
-posOfChessmanClass emplacement::getEmptyFields()
+bitset<64> emplacement::getEmptyFields()
 {
-	posOfChessmanClass emptyFileds = 0;
+	bitset<64> emptyFileds = 0;
 	for (int i = 0; i < sizeof(chessboard); i++)
 	{
 		emptyFileds = chessboard[i] | emptyFileds;
@@ -148,9 +214,9 @@ posOfChessmanClass emplacement::getEmptyFields()
 	return ~emptyFileds;
 }
 
-posOfChessmanClass emplacement::getOccupiedFields()
+bitset<64> emplacement::getOccupiedFields()
 {
-	posOfChessmanClass occupiedFields = 0;
+	bitset<64> occupiedFields = 0;
 	for (int i = 0; i < sizeof(chessboard); i++)
 	{
 		occupiedFields = chessboard[i] | occupiedFields;
@@ -158,12 +224,22 @@ posOfChessmanClass emplacement::getOccupiedFields()
 	return occupiedFields;
 }
 
-posOfChessmanClass emplacement::getBlackOccupiedFields()
+bitset<64> emplacement::getBlackOccupiedFields()
 {
-	return chessboard[blackPawn] | chessboard[blackBishop] | chessboard[blackKing] | chessboard[blackKnight] | chessboard[blackQueen] | chessboard[blackRook];
+	return chessboard[blackPawn] | chessboard[blackBishop] | chessboard[blackKing] 
+		| chessboard[blackKnight] | chessboard[blackQueen] | chessboard[blackRook];
 }
 
-posOfChessmanClass emplacement::getWhiteOccupiedFields()
+bitset<64> emplacement::getWhiteOccupiedFields()
 {
-	return chessboard[whitePawn] | chessboard[whiteBishop] | chessboard[whiteKing] | chessboard[whiteKnight] | chessboard[whiteQueen] | chessboard[whiteRook];
+	return chessboard[whitePawn] | chessboard[whiteBishop] | chessboard[whiteKing] 
+		| chessboard[whiteKnight] | chessboard[whiteQueen] | chessboard[whiteRook];
+}
+
+chessmanClass emplacement::getChessmanClassOnPostion(int position)
+{
+
+
+
+	return chessmanClass();
 }

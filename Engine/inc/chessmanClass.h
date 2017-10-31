@@ -7,13 +7,17 @@ enum class chessmanClass
 	whiteBishop = 3,
 	whiteQueen = 4,
 	whiteKing = 5,
-	blackpawn = 6,
+	blackPawn = 6,
 	blackRook = 7,
 	blackKnight = 8,
 	blackBishop = 9,
 	blackQueen = 10,
 	blackKing = 11,
-	black,
-	white
+	black = 12,
+	white = 13
 };
+
+
+constexpr const unsigned int operator !=(chessmanClass a, unsigned int b) { return static_cast<unsigned int>(a) != b; };
+constexpr unsigned int operator ==(chessmanClass a, unsigned int b) { return static_cast<unsigned int>(a) == b; };
 
