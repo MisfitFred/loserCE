@@ -14,7 +14,8 @@ enum class chessmanClass
 	blackQueen = 10,
 	blackKing = 11,
 	black = 12,
-	white = 13
+	white = 13,
+	none = 14
 };
 
 

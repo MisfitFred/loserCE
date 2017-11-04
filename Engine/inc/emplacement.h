@@ -10,23 +10,24 @@ class emplacement
 {
 
 public: 
-	bitset<64> getGetPosOf(chessmanClass chessman);
-	bitset<64> getGetPosOf_whitePawn();
-	bitset<64> getGetPosOf_whiteRook();
-	bitset<64> getGetPosOf_whiteKnight();
-	bitset<64> getGetPosOf_whiteBishop();
-	bitset<64> getGetPosOf_whiteQueen();
-	bitset<64> getGetPosOf_whiteKing();
-	bitset<64> getGetPosOf_blackPawn();
-	bitset<64> getGetPosOf_blackRook();
-	bitset<64> getGetPosOf_blackKnight();
-	bitset<64> getGetPosOf_blackBishop();
-	bitset<64> getGetPosOf_blackQueen();
-	bitset<64> getGetPosOf_blackKing();
+	bitset<64> getPosOf(chessmanClass chessman);
+	bitset<64> getPosOf_whitePawn();
+	bitset<64> getPosOf_whiteRook();
+	bitset<64> getPosOf_whiteKnight();
+	bitset<64> getPosOf_whiteBishop();
+	bitset<64> getPosOf_whiteQueen();
+	bitset<64> getPosOf_whiteKing();
+	bitset<64> getPosOf_blackPawn();
+	bitset<64> getPosOf_blackRook();
+	bitset<64> getPosOf_blackKnight();
+	bitset<64> getPosOf_blackBishop();
+	bitset<64> getPosOf_blackQueen();
+	bitset<64> getPosOf_blackKing();
 	bitset<64> getEmptyFields();
 	bitset<64> getOccupiedFields();
 	bitset<64> getBlackOccupiedFields();
 	bitset<64> getWhiteOccupiedFields();
+	void setChessmanOnPosition(chessmanClass chessman, int position);
 
 	chessmanClass getChessmanClassOnPostion(int position);
 

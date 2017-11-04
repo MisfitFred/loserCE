@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "emplacement.h"
 #include "string.h"
+#include <exception>
 
 /*some ugly type casts due to performance increase */
 static_assert(chessmanClass::whitePawn == 0u, "Assumend enumeration of chesmmanClass does not fit to the implementation of emplacement class");
@@ -43,7 +44,7 @@ emplacement::emplacement()
 /*
 emplacement::emplacement(emplacement *originChessboard)
 {
-	//todo better use c++ mechanisms, perhaps a reference can be fir much better
+	//todo better use c++ mechanisms, perhaps a reference can be fit much better
 	//std::copy(std::begin(chessboard), std::end(chessboard), std::begin(originChessboard->chessboard));
 	//memcpy((void*)chessboard, originChessboard->chessboard, sizeof(chessboard));
 }*/
@@ -51,40 +52,27 @@ emplacement::emplacement(emplacement *originChessboard)
 emplacement::emplacement(emplacement * originChessboard, chessMove move)
 {
 	std::copy(std::begin(chessboard), std::end(chessboard), std::begin(originChessboard->chessboard));
+	int chessmanType = static_cast<int>(move.chessman);
+	const chessmanClass chessmanClassOnNewPosition = getChessmanClassOnPostion(move.oldPosition);
 
-	switch (move.chessman) 
+	if (chessboard[chessmanType].test(move.oldPosition))
 	{
-		case chessmanClass::whitePawn:
-			break;
-		case chessmanClass::whiteRook:
-			break;
-		case chessmanClass::whiteKnight:
-			break;
-		case chessmanClass::whiteBishop:
-			break;
-		case chessmanClass::whiteQueen:
-			break;
-		case chessmanClass::whiteKing:
-			break;
-		case chessmanClass::blackPawn:
-			break;
-		case chessmanClass::blackRook:
-			break;
-		case chessmanClass::blackKnight:
-			break;
-		case chessmanClass::blackBishop:
-			break;
-		case chessmanClass::blackQueen:
-			break;
-		case chessmanClass::blackKing:
-			break;
-		case chessmanClass::black:
-			break;
-		case chessmanClass::white:
-			break;
-		default:
-			break;
+		chessboard[chessmanType].reset(move.oldPosition);
+
+		//check if a chessman is already on the new position, if yes remove it. 
+		if (chessmanClassOnNewPosition == chessmanClass::none)
+		{
+			chessboard[static_cast<int>(chessmanClassOnNewPosition)].reset(move.newPosition);
+		}
+
+		chessboard[chessmanType].set(move.newPosition);
 	}
+	else
+	{
+
+	}
+
+
 }
 
 emplacement::~emplacement()
@@ -94,7 +82,7 @@ emplacement::~emplacement()
 
 
 
-bitset<64> emplacement::getGetPosOf(chessmanClass chessman)
+bitset<64> emplacement::getPosOf(chessmanClass chessman)
 {
 	switch (chessman) {
 		case chessmanClass::whitePawn:
@@ -144,62 +132,62 @@ bitset<64> emplacement::getGetPosOf(chessmanClass chessman)
 	return this->chessboard[0];
 }
 
-bitset<64> emplacement::getGetPosOf_whitePawn()
+bitset<64> emplacement::getPosOf_whitePawn()
 {
 	return this->chessboard[whitePawn];
 }
 
-bitset<64> emplacement::getGetPosOf_whiteRook()
+bitset<64> emplacement::getPosOf_whiteRook()
 {
 	return this->chessboard[whiteRook];
 }
 
-bitset<64> emplacement::getGetPosOf_whiteKnight()
+bitset<64> emplacement::getPosOf_whiteKnight()
 {
 	return this->chessboard[whiteKnight];
 }
 
-bitset<64> emplacement::getGetPosOf_whiteBishop()
+bitset<64> emplacement::getPosOf_whiteBishop()
 {
 	return this->chessboard[whiteBishop];
 }
 
-bitset<64> emplacement::getGetPosOf_whiteQueen()
+bitset<64> emplacement::getPosOf_whiteQueen()
 {
 	return this->chessboard[whiteQueen];
 }
 
-bitset<64> emplacement::getGetPosOf_whiteKing()
+bitset<64> emplacement::getPosOf_whiteKing()
 {
 	return this->chessboard[whiteKing];
 }
 
-bitset<64> emplacement::getGetPosOf_blackPawn()
+bitset<64> emplacement::getPosOf_blackPawn()
 {
 	return this->chessboard[blackPawn];
 }
 
-bitset<64> emplacement::getGetPosOf_blackRook()
+bitset<64> emplacement::getPosOf_blackRook()
 {
 	return this->chessboard[blackRook];
 }
 
-bitset<64> emplacement::getGetPosOf_blackKnight()
+bitset<64> emplacement::getPosOf_blackKnight()
 {
 	return this->chessboard[blackKnight];
 }
 
-bitset<64> emplacement::getGetPosOf_blackBishop()
+bitset<64> emplacement::getPosOf_blackBishop()
 {
 	return this->chessboard[blackBishop];
 }
 
-bitset<64> emplacement::getGetPosOf_blackQueen()
+bitset<64> emplacement::getPosOf_blackQueen()
 {
 	return this->chessboard[blackQueen];
 }
 
-bitset<64> emplacement::getGetPosOf_blackKing()
+bitset<64> emplacement::getPosOf_blackKing()
 {
 	return this->chessboard[blackKing];
 }
@@ -242,4 +230,9 @@ chessmanClass emplacement::getChessmanClassOnPostion(int position)
 
 
 	return chessmanClass();
+}
+
+void setChessmanOnPosition(chessmanClass chessman, int position)
+{
+
 }

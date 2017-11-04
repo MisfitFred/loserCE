@@ -104,54 +104,12 @@ find_package(Threads REQUIRED)
 add_subdirectory(Engine)
 add_subdirectory(external)
 
-# unit test executable
-add_executable(
-    unit_tests
-    test/main.cpp
-    test/emplacement_test.cpp
-    )
-
-# unit test executable depends on google test
-add_dependencies(unit_tests googletest)
-
-
-
-# link unit test executable against google test
-# todo need to find a clean solution
-if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
-   target_link_libraries(
-    unit_tests
-    googletest
-    pthread
-	Engine
-    )
-endif()
-if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
-target_link_libraries(
-    unit_tests
-    googletest
-    Threads::Threads
-	Engine
-    )
-endif()	
-	
-	
-set_target_properties(unit_tests
-                      PROPERTIES COMPILE_DEFINITIONS GTEST_LANG_CXX11)
-					  
 # set cdash buildname
 set(BUILDNAME
     "${CMAKE_SYSTEM_NAME}-${CMAKE_HOST_SYSTEM_PROCESSOR}-${CMAKE_CXX_COMPILER_ID}-${cmake_build_type_tolower}"
     CACHE STRING
     "Name of build on the dashboard"
     )
-
-# activate ctest
-include(CTest)
-enable_testing()
-
-# define a test
-add_test(unit ${PROJECT_BINARY_DIR}/unit_tests)
 
 # make install and cpack
 include(install_target)
