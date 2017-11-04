@@ -84,6 +84,8 @@ emplacement::~emplacement()
 
 bitset<64> emplacement::getPosOf(chessmanClass chessman)
 {
+
+	bitset<64> ret;
 	switch (chessman) {
 		case chessmanClass::whitePawn:
 	
@@ -126,6 +128,9 @@ bitset<64> emplacement::getPosOf(chessmanClass chessman)
 		break;
 		case chessmanClass::white:
 		
+		break;
+		case chessmanClass::none:
+	
 		break;
 	};
 
@@ -195,17 +200,18 @@ bitset<64> emplacement::getPosOf_blackKing()
 bitset<64> emplacement::getEmptyFields()
 {
 	bitset<64> emptyFileds = 0;
-	for (int i = 0; i < sizeof(chessboard); i++)
+	for (unsigned int i = 0; i < chessboard.size(); i++)
 	{
 		emptyFileds = chessboard[i] | emptyFileds;
 	}
 	return ~emptyFileds;
+	
 }
 
 bitset<64> emplacement::getOccupiedFields()
 {
 	bitset<64> occupiedFields = 0;
-	for (int i = 0; i < sizeof(chessboard); i++)
+	for (unsigned int i = 0; i < chessboard.size(); i++)
 	{
 		occupiedFields = chessboard[i] | occupiedFields;
 	}
