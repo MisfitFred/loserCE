@@ -1,17 +1,18 @@
 #pragma once
 
-#include "chessmanclass.h"
+#include "chessmanType.h"
+namespace engine {
+	class chessMove
+	{
 
-class chessMove
-{
-	 
-public:
-	const int oldPosition;
-	const int newPosition;
-	const chessmanClass chessman;
-	
-	chessMove(int from, int to, chessmanClass chessman) : oldPosition{ from }, newPosition{ to }, chessman{chessman} {};
-	~chessMove() {};
-	static unsigned char Coordiante2Simple(unsigned char postionFrom[2]);
-};
+	public:
+		const int oldPosition;
+		const int newPosition;
+		const chessmanType chessman;
+
+		chessMove(int from, int to, chessmanType chessman) : oldPosition{ from }, newPosition{ to }, chessman{ chessman } {};
+		~chessMove() {};
+		static unsigned char Coordiante2Simple(unsigned char postionFrom[2]);
+	};
+}
 

@@ -39,45 +39,6 @@ add_subdirectory(${CMAKE_BINARY_DIR}/googletest-src
 # add_test(NAME example_test COMMAND example)
 
 
-
-# target to update git submodules
-# add_custom_target(
-    # update_googletest
-    # COMMAND git submodule init
-    # COMMAND git submodule update
-	# COMMAND git checkout release-1.8.0
-    # WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/googletest
-    # )
-
-
-#set(GOOGLETEST_ROOT googletest/googletest CACHE STRING "Google Test source root")
-
-# google test includes
-# include_directories(
-    # ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}
-    # ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}/include
-    # )
-
-# google test sources
-# set(GOOGLETEST_SOURCES
-    # ${CMAKE_CURRENT_SOURCE_DIR}/googletest/googletest/src/gtest-all.cc
-    # ${CMAKE_CURRENT_SOURCE_DIR}/googletest/googletest/src/gtest_main.cc
-    # )
-	
-# mark these files as generated (they may not be present at configure time)
-# foreach(_source ${GOOGLETEST_SOURCES})
-    # set_source_files_properties(${_source} PROPERTIES GENERATED 1)
-# endforeach()
-
-# add_library(googletest ${GOOGLETEST_SOURCES})
-# target_include_directories(googletest PUBLIC   
-	# ${CMAKE_CURRENT_SOURCE_DIR}/googletest/googletest
-    # ${CMAKE_CURRENT_SOURCE_DIR}/googletest/googletest/include
-# )
-
-# update git submodules before building google test
-# add_dependencies(googletest update_googletest)
-
 ######################################  pthread  ###################################		
 if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 #Workaround for VS2015 maybe trouble with GCC

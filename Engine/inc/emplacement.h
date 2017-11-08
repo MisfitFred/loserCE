@@ -1,46 +1,41 @@
 #pragma once
 #include "Types.h"
-#include "chessmanClass.h"
+#include "chessmanType.h"
 #include "chessMove.h"
 #include <array>
 #include <bitset>
+#include "chessmanSide.h"
 
-using namespace std; 
+namespace engine{
 class emplacement
 {
 
 public: 
-	bitset<64> getPosOf(chessmanClass chessman);
-	bitset<64> getPosOf_whitePawn();
-	bitset<64> getPosOf_whiteRook();
-	bitset<64> getPosOf_whiteKnight();
-	bitset<64> getPosOf_whiteBishop();
-	bitset<64> getPosOf_whiteQueen();
-	bitset<64> getPosOf_whiteKing();
-	bitset<64> getPosOf_blackPawn();
-	bitset<64> getPosOf_blackRook();
-	bitset<64> getPosOf_blackKnight();
-	bitset<64> getPosOf_blackBishop();
-	bitset<64> getPosOf_blackQueen();
-	bitset<64> getPosOf_blackKing();
-	bitset<64> getEmptyFields();
-	bitset<64> getOccupiedFields();
-	bitset<64> getBlackOccupiedFields();
-	bitset<64> getWhiteOccupiedFields();
-	void setChessmanOnPosition(chessmanClass chessman, int position);
+	std::bitset<64> getPosOf(chessmanType chessman);
+	std::bitset<64> getPosOf(chessmanSide side);
+	std::bitset<64> getEmptyFields();
+	std::bitset<64> getOccupiedFields();
+	std::bitset<64> getBlackOccupiedFields();
+	std::bitset<64> getWhiteOccupiedFields();
+	void setChessmanOnPosition(chessmanType chessman, int position);
+	void removeChessmanOnPosition(chessmanType chessman, int position);
+	void performMove(chessMove move);
 
-	chessmanClass getChessmanClassOnPostion(int position);
+	chessmanType getChessmanClassOnPostion(int position);
 
-	emplacement(emplacement *originChessboard) : chessboard{ originChessboard->chessboard } {};
+	emplacement(emplacement *originChessboard)  
+			{ std::copy(std::begin(chessboard), std::end(chessboard), std::begin(originChessboard->chessboard)); };
 	emplacement();
 	emplacement(emplacement *originChessboard, chessMove move);
 	~emplacement();
 
 protected:
-	//const posOfChessmanClass chessboard[12];
-	//std::array<float, 4> a = { 0,1,2,3 };
+	
+	std::array<std::bitset<64>, 12> chessboard;
 
-	std::array<bitset<64>, 12> chessboard;
+private:
 
+	bool areOnlyOneChessmanPerField(void);
 };
 
+}

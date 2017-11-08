@@ -1,12 +1,18 @@
 #include "stdafx.h"
-#include "chessmanClass.h"
+#include "chessmanType.h"
+
+
+namespace engine{
+
+}
+
 /*
-constexpr const unsigned int operator!=(chessmanClass a, unsigned int b)
+constexpr const unsigned int operator!=(chessmanType a, unsigned int b)
 {
 	return static_cast<unsigned int>(a) != b;
 }
 
-constexpr unsigned int operator==(chessmanClass a, unsigned int b)
+constexpr unsigned int operator==(chessmanType a, unsigned int b)
 {
 	return static_cast<unsigned int>(a) == b;
 }

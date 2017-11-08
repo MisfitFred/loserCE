@@ -72,32 +72,6 @@ if(NOT PYTHONINTERP_FOUND)
     message(FATAL_ERROR "ERROR: Python interpreter not found. Cannot continue - sorry.")
 endif()
 
-
-# generate the file
-# add_custom_target(
-    # generate_file
-    # COMMAND ${PYTHON_EXECUTABLE} ${PROJECT_SOURCE_DIR}/src/generate.py > ${PROJECT_BINARY_DIR}/mylib_generated.cpp
-    # )
-
-# mark the file as generated
-# set_source_files_properties(${PROJECT_BINARY_DIR}/mylib_generated.cpp PROPERTIES GENERATED 1)
-
-# static library
-# add_library(mylib_static STATIC src/mylib.cpp ${PROJECT_BINARY_DIR}/mylib_generated.cpp)
-# add_dependencies(mylib_static generate_file)
-
-# shared library
-# add_library(mylib_shared SHARED src/mylib.cpp)
-
-# compile main executable
-# add_executable(main.x src/main.cpp)
-
-# link library
-# target_link_libraries(main.x mylib_static)
-
-# library that holds sources to test
-# add_library(example src/example.cpp)
-
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
 
@@ -113,5 +87,46 @@ set(BUILDNAME
 
 # make install and cpack
 include(install_target)
+
+
+option(BUILD_DOC "Build documentation" ON)
+
+# check if Doxygen is installed
+find_package(Doxygen)
+if (DOXYGEN_FOUND)
+
+
+set(DOXYGEN_GENERATE_HTML YES)
+set(DOXYGEN_GENERATE_MAN NO)
+
+doxygen_add_docs(
+    Engine_GenerateDocu
+    ${PROJECT_SOURCE_DIR}/Engine
+    COMMENT "Generate man pages"
+)
+    # set input and output files
+    # set(DOXYGEN_IN ${CMAKE_CURRENT_SOURCE_DIR}/doc/Doxyfile.in)
+    # set(DOXYGEN_OUT ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
+
+    # request to configure the file
+    # configure_file(${DOXYGEN_IN} ${DOXYGEN_OUT} @ONLY)
+    # message("Doxygen build started")
+
+    # note the option ALL which allows to build the docs together with the application
+    # add_custom_target( doc_doxygen ALL
+        # COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_OUT}
+        # WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+        # COMMENT "Generating API documentation with Doxygen"
+        # VERBATIM )
+else (DOXYGEN_FOUND)
+  message("Doxygen need to be installed to generate the doxygen documentation")
+endif (DOXYGEN_FOUND)
+
+
+
+
+
+
+
 
 
