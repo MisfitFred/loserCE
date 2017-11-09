@@ -2,38 +2,39 @@
 #include <vector>
 #include "chessMove.h"
 #include "chessmanSide.h"
+#include "emplacement.h"
 namespace engine{
 
- class  chessmanClass {
+class  chessmanClass {
 public:
 	const chessmanSide side;
 
 	chessmanClass(chessmanSide cSide) : side{ cSide } {};
-	virtual std::vector<chessMove> getMoves(unsigned int position) { std::vector<chessMove> ret;  return ret; };
+	virtual std::vector<chessMove> getMoves(emplacement *board, unsigned int position, chessmanSide side) { std::vector<chessMove> ret;  return ret; };
 };
 
 class chessmanPawn : public chessmanClass {
 
-	static std::vector<chessMove> getMoves(unsigned int position) { std::vector<chessMove> ret;  return ret; };
+	static std::vector<chessMove> getMoves(emplacement *board, chessmanSide side);
 };
 
 class chessmanRook : public chessmanClass {
 
-	static std::vector<chessMove> getMoves(unsigned int position) { std::vector<chessMove> ret;  return ret; };
+	static std::vector<chessMove> getMoves(emplacement *board, unsigned int position, chessmanSide side) { std::vector<chessMove> ret;  return ret; };
 };
 
 class chessmanKnight : public chessmanClass {
 
-	static std::vector<chessMove> getMoves(unsigned int position) { std::vector<chessMove> ret;  return ret; };
+	static std::vector<chessMove> getMoves(emplacement *board, unsigned int position, chessmanSide side) { std::vector<chessMove> ret;  return ret; };
 };
 
 class chessmanQueen : public chessmanClass {
 
-	static std::vector<chessMove> getMoves(unsigned int position) { std::vector<chessMove> ret;  return ret; };
+	static std::vector<chessMove> getMoves(emplacement *board, unsigned int position, chessmanSide side) { std::vector<chessMove> ret;  return ret; };
 };
 
 class chessmanKing : public chessmanClass {
 
-	static std::vector<chessMove> getMoves(unsigned int position) { std::vector<chessMove> ret;  return ret; };
+	static std::vector<chessMove> getMoves(emplacement *board, unsigned int position, chessmanSide side) { std::vector<chessMove> ret;  return ret; };
 };
 }

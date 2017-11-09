@@ -5,12 +5,15 @@
 #include <array>
 #include <bitset>
 #include "chessmanSide.h"
+#include <vector>
 
 namespace engine{
 class emplacement
 {
 
 public: 
+
+	std::vector<chessMove> getPossibleMoves(chessmanSide side);
 	std::bitset<64> getPosOf(chessmanType chessman);
 	std::bitset<64> getPosOf(chessmanSide side);
 	std::bitset<64> getEmptyFields();

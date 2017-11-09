@@ -15,6 +15,5 @@ enum class chessmanType
 	blackKing = 11,
 	none = 14
 };
-constexpr const unsigned int operator !=(chessmanType a, unsigned int b) { return static_cast<unsigned int>(a) != b; };
-constexpr unsigned int operator ==(chessmanType a, unsigned int b) { return static_cast<unsigned int>(a) == b; };
+
 

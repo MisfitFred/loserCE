@@ -6,6 +6,9 @@
 namespace engine{
 
 	using namespace std;
+
+	constexpr const unsigned int operator !=(chessmanType a, unsigned int b) { return static_cast<unsigned int>(a) != b; };
+	constexpr unsigned int operator ==(chessmanType a, unsigned int b) { return static_cast<unsigned int>(a) == b; };
 	/*some ugly type casts due to performance increase */
 	static_assert(chessmanType::whitePawn == 0u, "Assumend enumeration of chesmmanClass does not fit to the implementation of emplacement class");
 	static_assert(chessmanType::whiteRook == 1u, "Assumend enumeration of chesmmanClass does not fit to the implementation of emplacement class");
@@ -64,6 +67,11 @@ namespace engine{
 	}
 
 
+
+	std::vector<chessMove> emplacement::getPossibleMoves(chessmanSide side)
+	{
+		return std::vector<chessMove>();
+	}
 
 	bitset<64> emplacement::getPosOf(chessmanType chessman)
 	{

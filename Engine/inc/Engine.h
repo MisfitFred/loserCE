@@ -1,14 +1,14 @@
 #pragma once
-#include "emplacement.h"
+#include "emplacementTree.h"
 #include "chessmanSide.h"
 #include <vector>
 
 namespace engine {
 
-	class emplacementNode{
+	class engine{
 
 	public:
-		emplacement *emplacementBase;
-		std::vector<emplacementNode> emplacementLeafs;
+		emplacement *engine;
+		std::vector<emplacementNode> engine;
 	};
 }
