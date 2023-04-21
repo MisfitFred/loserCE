@@ -1,4 +1,4 @@
-// looserCE.cpp: Hauptprojektdatei.
+// loserCE.cpp: Hauptprojektdatei.
 /*
 
 */

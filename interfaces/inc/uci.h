@@ -11,6 +11,11 @@ namespace chessInterface
 		uci(chessInterface::inOutInterface *interfaceObject);
 		~uci();
 
+		/**
+		 * @brief parse the command and starts processing
+		 *
+		 * @param command
+		 */
 		void processCommand(std::string &command);
 
 	protected:

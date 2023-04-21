@@ -8,8 +8,8 @@ add_library (interfaces STATIC
 )
 
 target_link_libraries(interfaces log)
-
 target_include_directories (interfaces PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/inc)
+add_libraries_to_doxygen(TARGET interfaces)
 
 #*********************************** UNIT TESTS ***************************************
 add_gtest(
