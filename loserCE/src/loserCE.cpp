@@ -14,6 +14,8 @@ int main(int argc, char* argv[])
 	chessInterface::stdInOut *inOut = chessInterface::stdInOut::instance();
 	chessInterface::uci uci_object(inOut);
 
+	inOut->registerUci(&uci_object);
+
 	inOut->waitForTerminate();
 
     return 0;

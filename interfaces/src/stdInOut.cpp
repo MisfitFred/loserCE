@@ -16,7 +16,6 @@ namespace chessInterface
 	// unique initialization
 	stdInOut *stdInOut::_instance = nullptr;
 
-	// Singelton pattern
 	stdInOut *stdInOut::instance(void)
 	{
 		if (nullptr == _instance)
@@ -40,12 +39,12 @@ namespace chessInterface
 	stdInOut::~stdInOut(void)
 	{
 		delete aLog;
+			inputWorkerThread->join();
+		outputWorkerThread->join();
 		delete inputWorkerThread;
+		delete outputWorkerThread;
 	}
 
-	/**
-	 * \brief wait till all thread of stdInOut are terminated.
-	 */
 	void stdInOut::waitForTerminate(void)
 	{
 		aLog->debug() << "wait for Terminate called";
@@ -53,32 +52,27 @@ namespace chessInterface
 		outputWorkerThread->join();
 	}
 
-	/**
-	 *\brief  worker function (std::thread) to catch istream
-	 */
 	void stdInOut::inputWorker(void)
 	{
-		string stringIn;
-		getline(*consoleInputBuffer_ptr, stringIn);
+		while (1)
+		{
+			string stringIn;
+			getline(*consoleInputBuffer_ptr, stringIn);
 
-		inputQueue.emplace(stringIn);
+			inputQueue.emplace(stringIn);
+			if (nullptr != this->parser)
+				this->parser->processCommand(stringIn);
 
-		aLog->debug() << "receive:" << stringIn;
+			aLog->debug() << "receive:" << stringIn;
+		}
 	};
 
-	/**
-	 *  \brief do not use,needed because base class function is virtual
-	 *  \todo check for a more elegant solution
-	 */
 	void stdInOut::input(const std::string input)
 	{
-		//outputQueue.push(input);
-		//outDataCondGui.notify_one();
+		// outputQueue.push(input);
+		// outDataCondGui.notify_one();
 	}
 
-	/**
-	 * \brief worker function to process data to cout
-	 */
 	void stdInOut::outputWorker(void)
 	{
 		std::unique_lock<std::mutex> outDataLock(outDataMutex);
@@ -95,11 +89,6 @@ namespace chessInterface
 		}
 	}
 
-	/**
-	 * \brief function to send a message to the UCI server 
-	 * 
-	 * \param output test which shall be sent
-	*/
 	void stdInOut::output(const std::string output)
 	{
 		aLog->debug() << "output:" << output;
@@ -107,71 +96,11 @@ namespace chessInterface
 		outDataCondGui.notify_one();
 	}
 
-#if 0
-	void uci::workerLoop(void)
-	{
-		while (!(this->terminate))
-		{
-			worker();
-		}		
-	}
-	
-	
-	void uci::dataOutput(void)
-	{
-	}
-	void uci::stateMachine(void)
-	{
-	}
-	
-
-	void uci::log(const string & data)
-	{
-		logFile << data << endl;
-		logFile.flush();
-		return;
-	}
-	string uci::getResponse(const string)
-	{
-		return string();
-	}
-	void uci::getConsoleInput(std::string & inBuffer)
-	{
-		getline(cin, inBuffer);
-	}
-#endif
-
-	/**
-	 *  \brief no effect, , needed because base class function is virtual
-	 *  \todo check for a more elegant solution
-	 */
 	void stdInOut::start(void)
 	{
 	}
 
-	/**
-	 *  \brief no effect, needed because base class function is virtual
-	 *  \todo check for a more elegant solution
-	 */
 	void stdInOut::stop(void)
 	{
 	}
-
-#if 0
-	void uci::createWorkerThread(void)
-	{
-		workerThread = new std::thread(&uci::workerLoop, this);
-	}
-
-	void uci::cmdUci(void)
-	{
-		consoleOutput("id name loserCE 0.0a");
-		consoleOutput("id author Matthias N.");
-	}
-
-	void uci::cmdQuit(void)
-	{
-		this->terminate = true;
-	}
-#endif
 }

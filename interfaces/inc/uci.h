@@ -5,6 +5,8 @@
 #include "inOutInterface.h"
 namespace chessInterface
 {
+	class inOutInterface;
+
 	class uci
 	{
 	public:

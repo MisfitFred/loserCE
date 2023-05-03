@@ -3,18 +3,11 @@
 #include <exception>
 #include <string>
 #include <algorithm>
-// #include <array>
-// #include <thread>
 #include <iostream>
-// #include <sstream>
-// #include <atomic>
-// #include <map>
-// #include <iterator>
-// #include <xutility>
-// #include <iterator>
 #include <vector>
 #include "uci.h"
 #include "log.h"
+#include <stdlib.h>
 
 using namespace std;
 namespace chessInterface
@@ -67,90 +60,6 @@ namespace chessInterface
 	}
 
 
-#if 0
-	void uci::waitForTerminate(void)
-	{
-		workerThread->join();
-	}*/
-
-	void uci::worker(void) {
-		std::string receivedDataString = waitForDataInput();
-		std::istringstream  receivedDataIss(receivedDataString);
-
-		//seperate input stream by "blanks" and store each "word" int as an string element of a vector. 
-		std::vector<std::string> keyWords(std::istream_iterator<std::string>{receivedDataIss}, std::istream_iterator<std::string>());
-
-		//Search in keywords for a known key word which are stored in (uciGuiCommandListVector)
-		auto element = std::find_first_of(keyWords.begin(), keyWords.end(), uciGuiCommandListVector.begin(), uciGuiCommandListVector.end());
-		if (element != keyWords.end())
-		{
-			//key word should be known, search for a processing method.
-			auto processingKeywordMethod = uciGuiCommandListMap_fp.find(*element);
-			if (processingKeywordMethod != uciGuiCommandListMap_fp.end())
-			{
-				//call the method
-				(*this.*(*processingKeywordMethod).second)();
-			}
-			else
-			{
-				/* command not found */
-				log(string("Internal Error: received unknown could no be processed : \"") + receivedDataString + "\"");
-			}
-		}
-		else
-		{
-			/* command not found */
-			log(string("received unknown command: \"") + receivedDataString + "\"");
-		}
-	
-	};
-	void uci::workerLoop(void)
-	{
-		while (!(this->terminate))
-		{
-			worker();
-		}		
-	}
-	
-	std::string  uci::waitForDataInput(void)
-	{
-		string inBuffer;
-		getline(*consoleInputBuffer_ptr, inBuffer);
-		
-		//getConsoleInput(inBuffer);
-		log("receive:" + inBuffer);
-		return inBuffer;
-			
-	}
-	void uci::dataOutput(void)
-	{
-	}
-	void uci::stateMachine(void)
-	{
-	}
-	
-
-	void uci::log(const string & data)
-	{
-		logFile << data << endl;
-		logFile.flush();
-		return;
-	}
-	string uci::getResponse(const string)
-	{
-		return string();
-	}
-	void uci::getConsoleInput(std::string & inBuffer)
-	{
-		getline(cin, inBuffer);
-	}
-
-
-	void uci::createWorkerThread(void)
-	{
-		workerThread = new std::thread(&uci::workerLoop, this);
-	}
-#endif
 
 	/**
 	 * \brief Process the UCI "uci" command
@@ -168,12 +77,15 @@ namespace chessInterface
 	{
 		inOut->output("id name loserCE 0.0a");
 		inOut->output("id author Fred C.");
+		inOut->output("uciok");
 	}
 
 	void uci::cmdQuit(const std::string &parameter)
 	{
+		inOut->output("quit");
 		this->terminate = true;
-	}
+		 exit (EXIT_SUCCESS);
+	} 
 
 	void uci::cmdDebug(const std::string &parameter)
 	{
