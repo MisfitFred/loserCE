@@ -3,41 +3,61 @@
 #include "chessMove.h"
 #include "chessmanSide.h"
 #include "emplacement.h"
-namespace engine{
+namespace engine
+{
 
-class  chessmanClass {
-public:
-	const chessmanSide side;
+	class chessmanClass
+	{
+	public:
+		const chessmanSide side;
 
-	chessmanClass(chessmanSide cSide) : side{ cSide } {};
-	virtual std::vector<chessMove> getMoves(emplacement *board, unsigned int position, chessmanSide side) = 0;
-};
+		chessmanClass(chessmanSide cSide) : side{cSide} {};
+		virtual std::vector<chessMove> getMoves(emplacement *board, unsigned int position, chessmanSide side) = 0;
+	};
 
+	class chessmanPawn : public chessmanClass
+	{
+	public:
+		std::vector<chessMove> getMoves(emplacement *board, unsigned int position, chessmanSide side) override;
+	};
 
-class chessmanPawn : public chessmanClass {
-	public: 
-		static std::vector<chessMove> getMoves(emplacement *board, chessmanSide side);
-};
-#if 0
-class chessmanRook : public chessmanClass {
+	class chessmanRook : public chessmanClass
+	{
 
-	static std::vector<chessMove> getMoves(emplacement *board, unsigned int position, chessmanSide side) { std::vector<chessMove> ret;  return ret; };
-};
+		std::vector<chessMove> getMoves(emplacement *board, unsigned int position, chessmanSide side) override
+		{
+			std::vector<chessMove> ret;
+			return ret;
+		};
+	};
 
-class chessmanKnight : public chessmanClass {
+	class chessmanKnight : public chessmanClass
+	{
 
-	static std::vector<chessMove> getMoves(emplacement *board, unsigned int position, chessmanSide side) { std::vector<chessMove> ret;  return ret; };
-};
+		std::vector<chessMove> getMoves(emplacement *board, unsigned int position, chessmanSide side) override
+		{
+			std::vector<chessMove> ret;
+			return ret;
+		};
+	};
 
-class chessmanQueen : public chessmanClass {
+	class chessmanQueen : public chessmanClass
+	{
 
-	static std::vector<chessMove> getMoves(emplacement *board, unsigned int position, chessmanSide side) { std::vector<chessMove> ret;  return ret; };
-};
+		std::vector<chessMove> getMoves(emplacement *board, unsigned int position, chessmanSide side) override
+		{
+			std::vector<chessMove> ret;
+			return ret;
+		};
+	};
 
-class chessmanKing : public chessmanClass {
+	class chessmanKing : public chessmanClass
+	{
 
-	static std::vector<chessMove> getMoves(emplacement *board, unsigned int position, chessmanSide side) { std::vector<chessMove> ret;  return ret; };
-};
-
-#endif
+		std::vector<chessMove> getMoves(emplacement *board, unsigned int position, chessmanSide side) override
+		{
+			std::vector<chessMove> ret;
+			return ret;
+		};
+	};
 }

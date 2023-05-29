@@ -187,3 +187,4 @@ TEST_F(loggerTest, checkInstance)
 
     EXPECT_EQ(reference, "#TETETETE->debug: Test My Logger 4\n");
 }
+

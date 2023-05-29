@@ -1,0 +1,62 @@
+# Bazel BUILD-Datei
+
+load("@bazel_tools//tools/build_defs/cc:action_names.bzl", "cpp_compile", "cpp_link")
+load("@rules_cc//cc:defs.bzl", "cc_test")
+
+# Regel zum Erstellen der Bibliothek template
+cc_library(
+    name = "template",
+    srcs = [
+        "src/template.cpp",
+    ],
+    hdrs = [
+        "inc/template.h",
+    ],
+    includes = [
+        "inc",
+    ],
+)
+
+# Regel zum Erstellen der Unit-Tests template_test
+cc_test(
+    name = "template_test",
+    srcs = ["test/template_test.cpp"],
+    deps = [
+        "@gtest//:gtest",
+        "@gtest//:gtest_main",
+        "@threads//:threads",
+        ":template",
+    ],
+    copts = ["-DGTEST_LANG_CXX11"],
+)
+
+# Regel zum Hinzufügen der Coverage-Unterstützung
+cc_library(
+    name = "coverage_support",
+    deps = [
+        "@gtest//:gtest",
+        "@gtest//:gtest_main",
+        "@threads//:threads",
+    ],
+    linkopts = ["--coverage"],
+)
+
+# Regel zum Erstellen des Testziels mit Coverage-Unterstützung
+cc_test(
+    name = "template_test_with_coverage",
+    srcs = ["test/template_test.cpp"],
+    deps = [
+        ":coverage_support",
+        ":template",
+    ],
+    copts = ["-DGTEST_LANG_CXX11"],
+    linkopts = ["--coverage"],
+)
+
+# Standard-Testziel
+test_suite(
+    name = "tests",
+    tests = [
+        ":template_test",
+    ],
+)
